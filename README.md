@@ -1,4 +1,4 @@
-# Bayesian Statistics and Econometric #
+# Bayesian Statistics and Econometrics #
 Kevin Ko \
 3/15/2021\
 
