@@ -230,7 +230,10 @@ on consumer durables from the model with simulation. McElreath calls this
 The model concludes that population has no statistically significant effect
 on the price of durables. Especially notable is the amount of uncertainty in the
 model. This is captured by the sigmaPd parameter which captures the noise
-in the model after the regression.
+in the model after the regression. This is not in line with my original
+hypothesis, so future areas of exploration are whether there is an error
+in the model training or whether the changes in prices are due entirely to
+the change in gas prices.
 
 
 ## Correctness of a graph
@@ -266,3 +269,11 @@ For this reason, causal inference is a useful but limited
 tool that can help you explore the data but can't replace experimentation.
 
 ## Income a Cause or an Effect?
+
+In this document, I've explored Bayesian models and I tested and explored
+the technique on an econometrics dataset. Ultimately, I found the technique
+a great tool for understanding individual features and their impact on each
+other. The discussion of confounding was especially useful and a great addition
+for future projects where we need to use data to make decision. One final
+question I'd like to ask with this dataset to whether Income is a cause
+or effect in this dataset. That is, do gas prices increase or decrease wages.
