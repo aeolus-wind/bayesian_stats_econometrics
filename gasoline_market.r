@@ -477,7 +477,7 @@ shade(apply(s$pd_norm, 2, PI), sim_dat$pop_norm)
 mtext("Total counterfactual effect of Population on the price of Durables")
 
 
-plot(sim_dat$pop_norm, colMeans(s$pnc_norm), ylim=c(-3,3), type="l",
+plot(sim_dat$pop_norm, colMeans(s$gexp_norm), ylim=c(-3,3), type="l",
      xlab="Manipulated Population normed", ylab="Counterfactual New Cars Index Normed")
 shade(apply(s$pnc_norm, 2, PI), sim_dat$pop_norm)
 mtext("Total counterfactual effect of Population on the price of New Cars")

@@ -1,6 +1,6 @@
 # Bayesian Statistics and Econometrics #
 Kevin Ko \
-3/15/2021\
+3/15/2021 \
 
 
 This project was to read Richard McElreath's Statistical Relearning
@@ -10,11 +10,11 @@ Econometrics data, so selected a [dataset](http://pages.stern.nyu.edu/~wgreene/T
 on other economic indicators to explore.
 
 
-## Introduction
+## Introduction ##
 
-The reader may be surpised to find that this project uses linear regression as
-its primary tool, but this is the final capstone project of a Machine Learning
-Engineer Course. This project serves as an introduction to Bayesian statistical
+The reader may be surpised to find that while this was intended to be the final
+project of a Machine Learning Engineer course, this project uses linear regression as
+its primary tool. This project serves as an introduction to Bayesian statistical
 models, Causal Inference, and Econometrics. These are fields that I've been
 hoping to explore for some time and the open-ended nature of this final
 capstone project afforded me the opportunity to close this gap.
@@ -29,13 +29,13 @@ might ask what value does econometrics, linear regression, and Causal Inference
 have for a Machine-learning practitioner?
 
 The value that I see is primarily as an exploratory tool to disentangle which
-variables are importent. By understanding the variables, one has a leg-up
+variables are importent. By understanding the variables, one has a leg up
 when complex models fail. One can also anticipate bugs and access broader types
 of research in the field.
 
 A major highlight of the book is the exploration of causal inference and
 confounding causal paths. This is the clearest exploration that I have seen
-of the tired expression "corellation is not causation."
+of the tired expression "correlation is not causation."
 
 ## Bayesian Statistics and Linear Models in Econometrics ##
 
@@ -88,7 +88,10 @@ parameters a, b and sigma are specified with prior distributions, which
 are starting points for the optimization algorithm that fits the final parameters.
 Note that the wid is an index which indicates whether a data point was collected
 for a period during the war or in a non-war period and indicates that two
-models should be fit, one for each period.
+models should be fit, one for each period. There is a subtle art to choosing
+the right priors. If you choose your priors poorly, your model may not
+reach the correct final values. McElreath has a few procedures for
+choosing reasonable priors in his book.
 
 ## Gasoline Prices Dataset
 
@@ -142,7 +145,7 @@ ties ovservations of happiness to age, even though age does not cause happiness.
 
 McElreath includes a simulation that illustrates this. It is reproduced below
 
-1. Each year, 20 peopel are born with uniformly distributed happiness values.
+1. Each year, 20 people are born with uniformly distributed happiness values.
 2. Each year, each person ages one year. Happiness does not change.
 3. At age 18, individuals can become married. The odds of marriage are
 proportional to their Happiness
@@ -189,12 +192,12 @@ include a variable leads to a misleading correlation coefficient. What is the
 general rule for when to include or exclude a variable? The rule is as follows
 
 Consider independent variable (I) and dependent variable (D)
-1. Consider all paths on the causal graph between I and D
+1. Consider all backdoor paths on the causal graph between I and D
+  - A path is a backdoor path if it has an edge leading to I
   - Note that you can traverse an edge backwards
 2. If the path contains a collider A->B<-C, then do not include the collider variable in the model
   - by including the collider, you are opening a biased path of information
-3. If the path does not include a collider, include the variable
-  - by including the path, you are closing paths of information that you are missing that would otherwise bias your prediction.
+3. If the path does not include a collider, close the path by including an observable variable along the path
 
 I note that even if you do everything right, there can be 'invisible paths'
 that you cannot take into account because of unobserved variables.
@@ -212,8 +215,14 @@ to consider all paths from population to durables. There are 3 paths.
 2. Pop -> GasExp -> Puc <- Pnc -> Pd
 3. Pop -> GasExp -> Puc -> Ppt <- Pnc -> Pd
 
+While none of these paths are backdoor paths when considering population as the
+independent variable, the interesting thing about regression is that the math
+is symmetric due to the equality sign, so we also have to consider Pd as the
+independent variable. In that case, all the paths are backdoor paths.
+
 Paths 2 and 3 contain colliders Puc and Ppt, so if we regress on all the variables
-in path 1, we can measure the impact of population on the prices of durables.
+the correlation coefficients will be confounded. In path 1, we can measure the
+impact of population on the prices of durables without confounding.
 
 In the included code, this is model 10. The resulting coefficients are below:
 
